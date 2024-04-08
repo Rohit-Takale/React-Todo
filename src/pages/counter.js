@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -6,6 +6,8 @@ import Button from "../components/Button";
 function Counter() {
   const [name, setName] = useState("");
   const [sname, setSname] = useState("");
+
+  const [count, setCount] = useState(0);
 
   const items = [
     { id: 1, title: "Rohit", description: "Description of Item 1" },
@@ -27,6 +29,10 @@ function Counter() {
     alert(`Name: ${name}   Description: ${sname}`)
   };
 
+  useEffect( () => {
+    document.title=`practice(${count})`;
+  })
+
   return (
     <>
       <div className="grid  grid-cols-2 gap-4 p-4">
@@ -46,6 +52,10 @@ function Counter() {
       </div>
 
 
+<div className="grid grid-cols-2"> 
+<Button title="+" onClick={() => setCount(count+1)}></Button>
+{count}
+</div>
 
 
 

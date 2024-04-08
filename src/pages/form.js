@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 
@@ -6,6 +6,8 @@ function Form() {
   const fields = { name: "", sname: "" };
   const formRef = useRef(null);
   const [formData, setFormdata] = useState(fields);
+
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormdata((prevState) => ({
@@ -31,8 +33,10 @@ function Form() {
     countRef.current = 0;
     alert(countRef.current);
   }
+
+
   return (
-    <>
+    <> 
     <form ref={formRef}>
     <div className="grid grid-cols-2 gap-4 p-10">
         <div>

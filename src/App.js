@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./pages/home"; // Assuming 'home' is a component defined in './pages/home.js'
 import Counter from "./pages/counter";
 import Form from "./pages/form";
+import Weather from "./pages/weather";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/counter" element={<Counter/>}/>
           <Route path="/form" element={<Form/>}/>
+          <Route path="/weather" element={<Weather/>}/>
           
         </Routes>
       </Router>
