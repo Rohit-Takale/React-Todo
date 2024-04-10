@@ -26,17 +26,29 @@ function Weather() {
   };
 
   const getWeather = async () => {
+    if (name.length < 3) {
+      setError("Please enter a more specific location.");
+      setData(null); // Ensure no stale data is displayed
+      return;
+    }
     try {
       const response = await fetch(
-        `http://api.weatherapi.com/v1/current.json?key=d7febcea1f2c423fa09120846240604&q=${name}&aqi=yes`
+        `http://api.weatherapi.com/v1/current.json?key=d7febcea1f2c423fa09120846240604&q=${name}&aqi=no`
       );
       if (!response.ok) {
-        throw new Error("Location Not Found");
+        const errorMessage =
+          response.status === 400 ? "Location Not Found" : "An error occurred";
+        throw new Error(errorMessage);
+        console.log(response.status);
       }
-      const result = await response.json();
-      setData(result);
+      if (response.ok) {
+        const result = await response.json();
+        setData(result);
+        setError(null);
+      }
     } catch (error) {
       setError(error.message);
+      setData(null);
     }
   };
   return (
@@ -51,30 +63,18 @@ function Weather() {
           <Button title="Get Weather" onClick={getWeather} />
         </div>
       </div>
-      <div className="justify-center p-10">
-        {/* {data ? (
-          <div>
+      <div className="grid  justify-items-center items-center sm:p-4">
+        <div>
+          {data ? (
             <Card
               title={data.location.name}
               src={data.current.condition.icon}
+              descr={`Tempreture: ${data.current.temp_c}`}
             />
-            <p>Tempreture: {data.current.feelslike_c}℃</p>
-          </div>
-        ) : (
-          <p>loading....</p>
-        )} */}
-
-        {  data ? (
-          <div>
-            <Card
-              title={data.location.name}
-              src={data.current.condition.icon}
-            />
-            <p>Tempreture: {data.current.feelslike_c}℃</p>
-          </div>
-        ) : error ? (<p>Error: {error}</p>) : (
-          <p>loading....</p>
-        )}
+          ) : (
+            <p>{error}</p>
+          )}
+        </div>
       </div>
     </>
   );
