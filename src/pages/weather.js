@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Card from "../components/Card";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import WeatherCard from "../components/WeatherCard";
+import not_found from "../Images/not_found.gif"
 
 function Weather() {
   const [data, setData] = useState(null);
@@ -14,11 +15,25 @@ function Weather() {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch(
-      "http://api.weatherapi.com/v1/current.json?key=d7febcea1f2c423fa09120846240604&q=india&aqi=yes"
-    );
-    const result = await response.json();
-    setData(result);
+    try {
+      const response = await fetch(
+        `http://api.weatherapi.com/v1/current.json?key=d7febcea1f2c423fa09120846240604&q=india&aqi=no`
+      );
+      if (!response.ok) {
+        const errorMessage =
+          response.status === 400 ? "Location Not Found" : "An error occurred";
+        throw new Error(errorMessage);
+        console.log(response.status);
+      }
+      if (response.ok) {
+        const result = await response.json();
+        setData(result);
+        setError(null);
+      }
+    } catch (error) {
+      setError(error.message);
+      setData(null);
+    }
   };
 
   const nameChange = async (e) => {
@@ -53,28 +68,37 @@ function Weather() {
   };
   return (
     <>
-      <div className="grid grid-cols-2 gap-5 p-10">
+      <div className="grid grid-cols-1 gap-5 md:w-1/2 sm:w-full p-10 justify-center items-center">
         <div>
           <label>Enter Location</label>
           <Input type="text" name={name} value={name} onChange={nameChange} />
         </div>
-        <div></div>
         <div>
           <Button title="Get Weather" onClick={getWeather} />
         </div>
       </div>
-      <div className="grid  justify-items-center items-center sm:p-4">
-        <div>
-          {data ? (
-            <Card
-              title={data.location.name}
-              src={data.current.condition.icon}
-              descr={`Tempreture: ${data.current.temp_c}`}
-            />
-          ) : (
-            <p>{error}</p>
-          )}
-        </div>
+
+      <div>
+        {data ? (
+          <WeatherCard
+            name={data.location.name}
+            celcius={data.current.temp_c}
+            humidity={data.current.humidity}
+            wind={data.current.wind_kph}
+            date={data.location.localtime}
+            visibility={data.current.vis_km}
+            text={data.current.condition.text}
+            img={data.current.condition.icon}
+          />
+        ) : error ? (
+          <div className="text-center">
+            <p className="text-center font-medium text-2xl">{error}</p>
+            <center> <img src={not_found} alt="" /></center>
+           
+          </div>
+        ) : (
+          <p className="text-center">No Internet Connection</p>
+        )}
       </div>
     </>
   );
