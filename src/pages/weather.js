@@ -100,7 +100,7 @@ function Weather() {
           <p className="text-center">No Internet Connection</p>
         )}
       </div>
-      {/* Here goes the comment */}
+    
     </>
   );
 }
