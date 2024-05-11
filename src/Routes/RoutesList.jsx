@@ -8,9 +8,9 @@ import Home from "../pages/home";
 import Weather from "../pages/weather";
 
 export const routeList = [
-    { path: "/", element: <Home /> },
+    { path: "/home", element: <Home /> },
     { path: "/counter", element: <Counter /> },
-    { path: "/form", element: <Form /> },
+    { path: "/", element: <Form /> },
     { path: "/weather", element: <Weather /> },
     { path: "/likephoto", element: <LikeMyphoto /> },
     { path: "/testimonials", element: <TestimonialsApp /> },
