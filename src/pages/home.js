@@ -1,6 +1,13 @@
 import React from "react";
 function Home() {
-  return <div>This is home this is going to be new</div>;
+  const list = ["Kushal", "Kumar", "Praveen"];
+  const final_list = list.map((item) => <li>{item}</li>);
+  return (
+    <div>
+      {" "}
+      <ol>{final_list}</ol>{" "}
+    </div>
+  );
 }
 
 export default Home;

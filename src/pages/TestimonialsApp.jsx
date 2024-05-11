@@ -39,7 +39,7 @@ const TestimonialsApp = () => {
         {items.map((item) => (
          <>
           <div  key={item.id}> {item.name && <div>{item.name}</div>}</div>
-          <div>
+          <div key={item.id}>
             {item.title && <div>{item.title}</div>}
           </div>
           </>

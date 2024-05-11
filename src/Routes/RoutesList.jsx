@@ -1,3 +1,4 @@
+import Converter from "../pages/Converter";
 import DarkAndLight from "../pages/DarkAndLight";
 import LikeMyphoto from "../pages/LikePhoto";
 import TestimonialsApp from "../pages/TestimonialsApp";
@@ -14,5 +15,6 @@ export const routeList = [
     { path: "/likephoto", element: <LikeMyphoto /> },
     { path: "/testimonials", element: <TestimonialsApp /> },
     { path: "/darkandlight", element: <DarkAndLight /> },
+    {path:"/converter", element:<Converter/>}
   ];
 
