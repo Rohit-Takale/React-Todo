@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import axios from "axios";
@@ -18,7 +18,12 @@ function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post(`http://localhost/api/test.php`)
+    // const list = JSON.stringify(params)
+    axios.get(`http://localhost/api/test.php`, {
+      params:{
+        'id':'1'
+      }
+    })
       .then((response) => {
         console.log("Data: ", response.data);
       })
