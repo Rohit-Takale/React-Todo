@@ -133,6 +133,24 @@ const Mecical = () => {
                           }
                         />
                       )}
+                 {expandedItems[item.id] && (
+                  <div>
+                    {Object.entries(item.salt_forms_json).map(([form,strenghts]) => (
+                      <div>
+                        {Object.entries(strenghts).map(([strength,details]) => (
+                          <div>
+                           
+                            {Object.entries(details).map(([detailkey,detailValue])=>(
+                             <div>
+                              {detailkey} : {JSON.stringify(detailValue)}
+                             </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                 )}
                     </div>
                   )}
                 </div>
